@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+   <title>Cadastro de Motorista</title>
+</head>
+<body>
+   <div th:fragment="formMotorista">
+        <form th:action="@{/motorista/save}" th:object="${motorista}" method="post">
+
+            <input type="hidden" th:field="*{id}" />
+
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" th:field="*{nome}" required /><br><br>
+
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone" th:field="*{telefone}" required /><br><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" th:field="*{email}" required /><br><br>
+
+            <label for="dataNascimento">Data de Nascimento:</label>
+            <input type="date" id="dataNascimento" th:field="*{dataNascimento}" required /><br><br>
+
+            <label for="dataAdmissao">Data de Admissão:</label>
+            <input type="date" id="dataAdmissao" th:field="*{dataAdmissao}" required /><br><br>
+
+            <label for="cnhNumero">Número da CNH:</label>
+            <input type="text" id="cnhNumero" th:field="*{cnh.numeroCnh}" /><br><br>
+
+            <label for="cnhCategoria">Categoria:</label>
+            <input type="text" id="cnhCategoria" th:field="*{cnh.categoria}" /><br><br>
+
+            <label for="cnhDataEmissao">Data de Emissão:</label>
+            <input type="date" id="cnhDataEmissao" th:field="*{cnh.dataEmissao}" /><br><br>
+
+            <label for="cnhDataValidade">Data de Validade:</label>
+            <input type="date" id="cnhDataValidade" th:field="*{cnh.dataValidade}" /><br><br>
+
+            <label for="cnhOrgaoEmissor">Órgão Emissor:</label>
+            <input type="text" id="cnhOrgaoEmissor" th:field="*{cnh.orgaoEmissor}" /><br><br>
+
+            <label for="cnhObservacoes">Observações:</label>
+            <input type="text" id="cnhObservacoes" th:field="*{cnh.observacoes}" /><br><br>
+
+            <button type="submit">Salvar</button>
+        </form>
+   </div>
+</body>
+</html>

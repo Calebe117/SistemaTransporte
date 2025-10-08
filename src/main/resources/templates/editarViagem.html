@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Viagem</title>
+    <link href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <div th:insert="fragments/barraNavegacao :: navbar"></div>
+
+    <!-- Messages -->
+    <div th:insert="fragments/message :: message"></div>
+
+    <h1>Editar Viagem</h1>
+
+    <form th:action="@{/viagem/update}" th:object="${viagem}" method="post">
+
+        <input type="hidden" th:field="*{id}"/>
+
+        <label for="idOrigem">Origem*:</label>
+        <input type="text" id="idOrigem" th:field="*{origem}" placeholder="Informe o local de origem" required/>
+        <br/><br/>
+
+        <label for="idDestino">Destino*:</label>
+        <input type="text" id="idDestino" th:field="*{destino}" placeholder="Informe o local de destino" required/>
+        <br/><br/>
+
+        <label for="idDataHoraSaida">Data/Hora de Saída*:</label>
+        <input type="datetime-local" id="idDataHoraSaida" th:field="*{dataHoraSaida}" required/>
+        <br/><br/>
+
+        <label for="idDataHoraChegada">Data/Hora de Chegada:</label>
+        <input type="datetime-local" id="idDataHoraChegada" th:field="*{dataHoraChegada}"/>
+        <br/><br/>
+
+        <label for="idStatus">Status*:</label>
+        <select id="idStatus" th:field="*{status}" required>
+            <option value="AGENDADA">Agendada</option>
+            <option value="EM_ANDAMENTO">Em andamento</option>
+            <option value="CONCLUIDA">Concluída</option>
+            <option value="CANCELADA">Cancelada</option>
+        </select>
+        <br/><br/>
+
+        <label for="idDistanciaKm">Distância (km)*:</label>
+        <input type="number" id="idDistanciaKm" th:field="*{distanciaKm}" min="0" step="0.1" required/>
+        <br/><br/>
+
+        <label for="idMotorista">Motorista*:</label>
+        <select id="idMotorista" th:field="*{motorista}" required>
+            <option th:each="motorista : ${motoristas}" 
+                    th:value="${motorista.id}" 
+                    th:text="${motorista.nome}">
+            </option>
+        </select>
+        <br/><br/>
+
+        <button type="submit">Salvar Alterações</button>
+        <a th:href="@{/viagem/list}"><button type="button">Cancelar</button></a>
+    </form>
+</body>
+</html>

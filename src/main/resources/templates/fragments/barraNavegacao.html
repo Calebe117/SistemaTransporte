@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+   <title>Fragments</title>
+   <link href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+   <div th:fragment="navbar" class="menu">
+        <div class="sidenav">
+            <a href="/">Início</a>
+            
+            <button class="dropdown-btn">
+                Motoristas &#x25BC;
+            </button>
+            <div class="dropdown-container">
+                <a th:href="@{/motorista/form}">Cadastrar Motorista</a>
+                <a th:href="@{/motorista/list}">Listar Motoristas</a>
+            </div>
+            
+            <button class="dropdown-btn">
+                CNHs &#x25BC;
+            </button>
+            <div class="dropdown-container">
+                <a th:href="@{/cnh/form}">Cadastrar CNH</a>
+                <a th:href="@{/cnh/list}">Listar CNHs</a>
+            </div>
+            
+            <button class="dropdown-btn">
+                Viagens &#x25BC;
+            </button>
+            <div class="dropdown-container">
+                <a th:href="@{/viagem/form}">Cadastrar Viagem</a>
+                <a th:href="@{/viagem/list}">Listar Viagens</a>
+            </div>
+        </div>
+        <script src="/js/script.js"></script>
+    </div>
+</body>
+</html>

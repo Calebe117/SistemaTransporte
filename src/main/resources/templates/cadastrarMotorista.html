@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cadastro de Motorista</title>
+    <link href="/css/styles.css" rel="stylesheet">
+    <script src="/js/script.js"></script>
+</head>
+<body>
+    <div th:insert="fragments/barraNavegacao :: navbar"></div>
+   
+    <div th:insert="fragments/message :: message"></div>
+
+    <h1>Cadastro de Motorista</h1>
+   
+    <form th:action="@{/motorista/save}" th:object="${motorista}" method="post">
+
+        <input type="hidden" th:field="*{id}" />
+
+        <label for="idNome">Nome*:</label>
+        <input type="text" id="idNome" th:field="*{nome}" placeholder="Informe o nome" required/>
+        <br/><br/>
+
+        <label for="idTelefone">Telefone*:</label>
+        <input type="text" id="idTelefone" th:field="*{telefone}" placeholder="Informe o telefone" required/>
+        <br/><br/>
+
+        <label for="idEmail">Email*:</label>
+        <input type="email" id="idEmail" th:field="*{email}" placeholder="Informe o email" required/>
+        <br/><br/>
+
+        <label for="idDataNascimento">Data de Nascimento*:</label>
+        <input type="date" id="idDataNascimento" th:field="*{dataNascimento}" required/>
+        <br/><br/>
+
+        <label for="idDataAdmissao">Data de Admissão*:</label>
+        <input type="date" id="idDataAdmissao" th:field="*{dataAdmissao}" required/>
+        <br/><br/>
+
+        <h3>Dados da CNH</h3>
+
+        <label for="idCnhNumero">Número:</label>
+        <input type="text" id="idCnhNumero" th:field="*{cnh.numeroCnh}" placeholder="Informe o número da CNH"/>
+        <br/><br/>
+
+        <label for="idCnhCategoria">Categoria:</label>
+        <input type="text" id="idCnhCategoria" th:field="*{cnh.categoria}" placeholder="Ex: A, B, C"/>
+        <br/><br/>
+
+        <label for="idCnhDataEmissao">Data de Emissão:</label>
+        <input type="date" id="idCnhDataEmissao" th:field="*{cnh.dataEmissao}" />
+        <br/><br/>
+
+        <label for="idCnhDataValidade">Data de Validade:</label>
+        <input type="date" id="idCnhDataValidade" th:field="*{cnh.dataValidade}" />
+        <br/><br/>
+
+        <label for="idCnhOrgaoEmissor">Órgão Emissor:</label>
+        <input type="text" id="idCnhOrgaoEmissor" th:field="*{cnh.orgaoEmissor}" placeholder="Informe o órgão emissor"/>
+        <br/><br/>
+
+        <label for="idCnhObservacoes">Observações:</label>
+        <input type="text" id="idCnhObservacoes" th:field="*{cnh.observacoes}" placeholder="Ex: restrição de lentes"/>
+        <br/><br/>
+
+        <!-- Submit Buttons -->
+        <button type="submit">Salvar</button>
+        <button type="reset">Cancelar</button>
+       
+    </form>
+</body>
+</html>

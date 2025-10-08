@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Motoristas</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <!-- Navbar e mensagens -->
+    <div th:replace="fragments/barraNavegacao :: navbar"></div>
+    <div th:replace="fragments/message :: message"></div>
+
+    <h2>Lista de Motoristas</h2>
+    <table border="1" cellpadding="5" cellspacing="0">
+
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>Email</th>
+                <th>Data de Nascimento</th>
+                <th>Data de Admissão</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="motorista : ${motoristas}">
+                <td th:text="${motorista.nome}"></td>
+                <td th:text="${motorista.telefone}"></td>
+                <td th:text="${motorista.email}"></td>
+                <td th:text="${#dates.format(motorista.dataNascimento, 'dd/MM/yyyy')}"></td>
+                <td th:text="${#dates.format(motorista.dataAdmissao, 'dd/MM/yyyy')}"></td>
+                <td>
+                    <a th:href="@{'/motorista/edit/' + ${motorista.id}}">Editar</a> | 
+                    <a th:href="@{'/motorista/delete/' + ${motorista.id}}" 
+                       onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

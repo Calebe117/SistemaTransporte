@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Viagens</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <div th:replace="fragments/barraNavegacao :: navbar"></div>
+
+    <!-- Messages -->
+    <div th:replace="fragments/message :: message"></div>
+
+    <h2>Lista de Viagens</h2>
+
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Origem</th>
+                <th>Destino</th>
+                <th>Data/Hora Saída</th>
+                <th>Data/Hora Chegada</th>
+                <th>Status</th>
+                <th>Distância (km)</th>
+                <th>Motorista</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="viagem : ${viagens}">
+                <td th:text="${viagem.origem}"></td>
+                <td th:text="${viagem.destino}"></td>
+
+                <!-- Exibe a data/hora no formato simples, sem quebrar -->
+                <td th:text="${viagem.dataHoraSaida != null ? viagem.dataHoraSaida.toString().replace('T',' ') : '-'}"></td>
+                <td th:text="${viagem.dataHoraChegada != null ? viagem.dataHoraChegada.toString().replace('T',' ') : '-'}"></td>
+
+                <td th:text="${viagem.status}"></td>
+                <td th:text="${viagem.distanciaKm}"></td>
+                <td th:text="${viagem.motorista != null ? viagem.motorista.nome : '-'}"></td>
+
+                <td>
+                    <a th:href="@{'/viagem/edit/' + ${viagem.id}}">Editar</a> |
+                    <a th:href="@{'/viagem/delete/' + ${viagem.id}}"
+                       onclick="return confirm('Tem certeza que deseja excluir esta viagem?')">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

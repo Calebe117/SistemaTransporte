@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de CNHs</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <!-- Navbar e mensagens -->
+    <div th:replace="fragments/barraNavegacao :: navbar"></div>
+    <div th:replace="fragments/message :: message"></div>
+
+    <h2>Lista de CNHs</h2>
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Número CNH</th>
+                <th>Categoria</th>
+                <th>Data Emissão</th>
+                <th>Data Validade</th>
+                <th>Órgão Emissor</th>
+                <th>Observações</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="cnh : ${cnhs}">
+                <td th:text="${cnh.numeroCnh}"></td>
+                <td th:text="${cnh.categoria}"></td>
+                <td th:text="${#dates.format(cnh.dataEmissao, 'dd/MM/yyyy')}"></td>
+                <td th:text="${#dates.format(cnh.dataValidade, 'dd/MM/yyyy')}"></td>
+                <td th:text="${cnh.orgaoEmissor}"></td>
+                <td th:text="${cnh.observacoes}"></td>
+                <td>
+                    <a th:href="@{'/cnh/edit/' + ${cnh.id}}">Editar</a> |
+                    <a th:href="@{'/cnh/delete/' + ${cnh.id}}" 
+                       onclick="return confirm('Tem certeza que deseja excluir esta CNH?')">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
