@@ -40,6 +40,13 @@ public class ViagemController {
 
     @PostMapping("/save")
     public String saveViagem(@ModelAttribute Viagem viagem, Model model) {
+        if (viagem.getDataHoraChegada() != null &&
+            viagem.getDataHoraChegada().isBefore(viagem.getDataHoraSaida())) {
+            model.addAttribute("mensagemErro", "Data/Hora de Chegada não pode ser antes da Data/Hora de Saída.");
+            motoristas(model);
+            return "cadastrarViagem";
+        }
+
         viagemService.save(viagem);
         model.addAttribute("mensagemSucesso", "Viagem salva com sucesso");
         motoristas(model);
@@ -76,6 +83,14 @@ public class ViagemController {
 
     @PostMapping("/update")
     public String updateViagem(@ModelAttribute Viagem viagem, Model model) {
+        if (viagem.getDataHoraChegada() != null &&
+            viagem.getDataHoraChegada().isBefore(viagem.getDataHoraSaida())) {
+            model.addAttribute("mensagemErro", "Data/Hora de Chegada não pode ser antes da Data/Hora de Saída.");
+            motoristas(model);
+            model.addAttribute("viagem", viagem);
+            return "editarViagem";
+        }
+
         viagemService.save(viagem);
         model.addAttribute("mensagemSucesso", "Viagem atualizada com sucesso");
         model.addAttribute("viagens", viagemService.list());

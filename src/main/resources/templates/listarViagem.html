@@ -31,9 +31,9 @@
                 <td th:text="${viagem.origem}"></td>
                 <td th:text="${viagem.destino}"></td>
 
-                <!-- Exibe a data/hora no formato simples, sem quebrar -->
-                <td th:text="${viagem.dataHoraSaida != null ? viagem.dataHoraSaida.toString().replace('T',' ') : '-'}"></td>
-                <td th:text="${viagem.dataHoraChegada != null ? viagem.dataHoraChegada.toString().replace('T',' ') : '-'}"></td>
+                <!-- Formata a data/hora para dia/mês/ano -->
+                <td th:text="${viagem.dataHoraSaida != null ? #temporals.format(viagem.dataHoraSaida, 'dd/MM/yyyy HH:mm') : '-'}"></td>
+                <td th:text="${viagem.dataHoraChegada != null ? #temporals.format(viagem.dataHoraChegada, 'dd/MM/yyyy HH:mm') : '-'}"></td>
 
                 <td th:text="${viagem.status}"></td>
                 <td th:text="${viagem.distanciaKm}"></td>
