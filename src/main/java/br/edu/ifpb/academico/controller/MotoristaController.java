@@ -24,14 +24,26 @@ public class MotoristaController {
     @PostMapping("/save")
     public String saveMotorista(@ModelAttribute Motorista motorista, Model model) {
 
+        // Verifica se já existe email
         if (motoristaService.existsByEmail(motorista.getEmail())) {
             model.addAttribute("mensagemErro", "Já existe um motorista com o email " + motorista.getEmail());
             return "cadastrarMotorista";
         }
 
+        // Verifica se já existe CNH
         if (motorista.getCnh() != null && motoristaService.existsByCnhNumero(motorista.getCnh().getNumeroCnh())) {
             model.addAttribute("mensagemErro", "Já existe um motorista com a CNH número " + motorista.getCnh().getNumeroCnh());
             return "cadastrarMotorista";
+        }
+
+        // 🔎 Valida idade mínima de 18 anos
+        if (motorista.getDataNascimento() != null) {
+            long idadeEmMilissegundos = new java.util.Date().getTime() - motorista.getDataNascimento().getTime();
+            long anos = idadeEmMilissegundos / (1000L * 60 * 60 * 24 * 365);
+            if (anos < 18) {
+                model.addAttribute("mensagemErro", "O motorista deve ter pelo menos 18 anos.");
+                return "cadastrarMotorista";
+            }
         }
 
         motoristaService.save(motorista);
@@ -39,6 +51,7 @@ public class MotoristaController {
         model.addAttribute("motoristas", motoristaService.list());
         return "listarMotorista";
     }
+
 
     @GetMapping("/list")
     public String list(Model model) {
