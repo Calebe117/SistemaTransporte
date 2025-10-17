@@ -25,12 +25,16 @@
         <input type="text" id="idDestino" th:field="*{destino}" placeholder="Informe o local de destino" required/>
         <br/><br/>
 
-        <label for="idDataHoraSaida">Data/Hora de Saída*:</label>
-        <input type="datetime-local" id="idDataHoraSaida" th:field="*{dataHoraSaida}" required/>
+		<label for="idDataHoraSaida">Data/Hora de Saída*:</label>
+		<input type="datetime-local" id="idDataHoraSaida"
+		       th:value="${#temporals.format(viagem.dataHoraSaida, 'yyyy-MM-dd''T''HH:mm')}"
+		       name="dataHoraSaida" required/>
         <br/><br/>
 
-        <label for="idDataHoraChegada">Data/Hora de Chegada:</label>
-        <input type="datetime-local" id="idDataHoraChegada" th:field="*{dataHoraChegada}"/>
+		<label for="idDataHoraChegada">Data/Hora de Chegada*:</label>
+		<input type="datetime-local" id="idDataHoraChegada"
+		       th:value="${#temporals.format(viagem.dataHoraChegada, 'yyyy-MM-dd''T''HH:mm')}"
+		       name="dataHoraChegada"/>
         <br/><br/>
 
         <label for="idStatus">Status*:</label>
