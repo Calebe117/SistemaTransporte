@@ -20,8 +20,7 @@
 	
 	<div th:insert="fragments/message :: message"></div>
 
-	<form id="formCadastroUsuario" th:action="@{/usuario/save}" th:object="${usuario}" method="post">
-	    <br>
+	<form id="formUsuarioCadastro" th:action="@{/usuario/save}" th:object="${usuario}" method="post">
 	    <div th:insert="fragments/formUsuario :: formUsuario"></div>
 	    <div class="button-container">
 	        <button type="submit">Salvar</button>
@@ -29,31 +28,42 @@
 	    </div>
 	</form>
 
+
 	<script>
-	document.addEventListener("DOMContentLoaded", function() {
-	  const form = document.getElementById("formCadastroUsuario"); // apenas este form
-	  const dataNascimentoInput = document.getElementById("idDataNascimento");
+		document.addEventListener("DOMContentLoaded", function() {
+		    // Seleciona os formulários de cadastro e edição
+		    const formCadastro = document.getElementById("formUsuarioCadastro");
+		    const formEditar = document.getElementById("formUsuarioEditar");
 
-	  if (form && dataNascimentoInput) {
-	    form.addEventListener("submit", function(event) {
-	      const dataNascimento = new Date(dataNascimentoInput.value);
-	      const hoje = new Date();
+		    // Função de validação da idade
+		    function validarMaioridade(form) {
+		        const dataNascimentoInput = form.querySelector("#idDataNascimento");
+		        if (!dataNascimentoInput) return;
 
-	      let idade = hoje.getFullYear() - dataNascimento.getFullYear();
-	      const mes = hoje.getMonth() - dataNascimento.getMonth();
-	      if (mes < 0 || (mes === 0 && hoje.getDate() < dataNascimento.getDate())) {
-	        idade--;
-	      }
+		        form.addEventListener("submit", function(event) {
+		            const dataNascimento = new Date(dataNascimentoInput.value);
+		            const hoje = new Date();
 
-	      if (idade < 18) {
-	        event.preventDefault();
-	        alert("O usuário deve ter pelo menos 18 anos.");
-	        dataNascimentoInput.focus();
-	        return;
-	      }
-	    });
-	  }
-	});
+		            let idade = hoje.getFullYear() - dataNascimento.getFullYear();
+		            const mes = hoje.getMonth() - dataNascimento.getMonth();
+		            if (mes < 0 || (mes === 0 && hoje.getDate() < dataNascimento.getDate())) {
+		                idade--;
+		            }
+
+		            if (idade < 18) {
+		                event.preventDefault();
+		                alert("O usuário deve ter pelo menos 18 anos.");
+		                dataNascimentoInput.focus();
+		                return;
+		            }
+		        });
+		    }
+
+		    // Aplica a validação nos formulários que existirem
+		    if (formCadastro) validarMaioridade(formCadastro);
+		    if (formEditar) validarMaioridade(formEditar);
+		});
+
 	</script>
 
 </body>

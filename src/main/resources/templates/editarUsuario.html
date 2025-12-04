@@ -21,15 +21,51 @@
         
 		<div th:insert="fragments/message :: message"></div>
 
-		<form th:action="@{/usuario/edit}" th:object="${usuario}" method="post">
+		<form id="formUsuarioEditar" th:action="@{/usuario/edit}" th:object="${usuario}" method="post">
 		    <input type="hidden" id="idId" th:field="*{id}" />
 		    <div th:insert="fragments/formUsuario :: formUsuario"></div>
-		    <div>
+		    <div class="button-container">
 		        <button type="submit">Salvar</button>
 		        <button type="button" onclick="window.location.href='/usuario/list'">Cancelar</button>
 		    </div>
 		</form>
+		
+		<script>
+				document.addEventListener("DOMContentLoaded", function() {
+				    // Seleciona os formulários de cadastro e edição
+				    const formCadastro = document.getElementById("formUsuarioCadastro");
+				    const formEditar = document.getElementById("formUsuarioEditar");
 
+				    // Função de validação da idade
+				    function validarMaioridade(form) {
+				        const dataNascimentoInput = form.querySelector("#idDataNascimento");
+				        if (!dataNascimentoInput) return;
+
+				        form.addEventListener("submit", function(event) {
+				            const dataNascimento = new Date(dataNascimentoInput.value);
+				            const hoje = new Date();
+
+				            let idade = hoje.getFullYear() - dataNascimento.getFullYear();
+				            const mes = hoje.getMonth() - dataNascimento.getMonth();
+				            if (mes < 0 || (mes === 0 && hoje.getDate() < dataNascimento.getDate())) {
+				                idade--;
+				            }
+
+				            if (idade < 18) {
+				                event.preventDefault();
+				                alert("O usuário deve ter pelo menos 18 anos.");
+				                dataNascimentoInput.focus();
+				                return;
+				            }
+				        });
+				    }
+
+				    // Aplica a validação nos formulários que existirem
+				    if (formCadastro) validarMaioridade(formCadastro);
+				    if (formEditar) validarMaioridade(formEditar);
+				});
+
+			</script>
 
 </body>
 </html>
