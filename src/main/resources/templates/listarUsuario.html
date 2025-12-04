@@ -3,31 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>listar usuarios</title>
-    <link rel="stylesheet" th:href="@{/css/menu.css}">
-	<script src="/js/menu.js"></script>
+    <title>Listar Usuários</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <script src="/js/menu.js"></script>
 </head>
 <body>
     <div th:insert="fragments/barraNavegacao :: navbar"></div>
 
-    <h1>LISTAR usuario</h1>
+    <h1>Listar Usuários</h1>
     
     <table border="1">
         <thead>
             <tr>
                 <th>Nome</th>
-                <th>Matrícula</th>
                 <th>Data de Nascimento</th>
-                <th>login</th>
-                <th>email</th>
-                <th>roles</th>
+                <th>Login</th>
+                <th>Email</th>
+                <th>Roles</th>
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="usuario : ${usuarios}">
                 <td th:text="${usuario.nome}"></td>
-                <td th:text="${usuario.matricula}"></td>
                 <td th:text="${#dates.format(usuario.dataNascimento, 'dd/MM/yyyy')}"></td>
                 <td th:text="${usuario.login}"></td>
                 <td th:text="${usuario.email}"></td>
@@ -40,7 +38,7 @@
                 </td>
             </tr>
         </tbody>
-</table>
+    </table>
 
 </body>
 </html>

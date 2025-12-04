@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Usuario</title>
-    <link rel="stylesheet" th:href="@{/css/menu.css}">
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
    
 </head>
 <body>
@@ -19,21 +19,17 @@
 		</div>
 		<br>
         
-        <form th:action="@{/usuario/edit}"  th:object="${usuario}" method="post">
-            <br>
+		<div th:insert="fragments/message :: message"></div>
 
-            <input type="hidden" id="idId" th:field="*{id}" />
-                <br>
+		<form th:action="@{/usuario/edit}" th:object="${usuario}" method="post">
+		    <input type="hidden" id="idId" th:field="*{id}" />
+		    <div th:insert="fragments/formUsuario :: formUsuario"></div>
+		    <div>
+		        <button type="submit">Salvar</button>
+		        <button type="button" onclick="window.location.href='/usuario/list'">Cancelar</button>
+		    </div>
+		</form>
 
-           <div th:insert="fragments/formUsuario :: formUsuario"></div>
-
-           <br>
-
-           <div>
-               <button type="submit">Salvar</button>
-               <button type="button" onclick="window.location.href='/usuario/list'">Cancelar</button>
-           </div>
-        </form>
 
 </body>
 </html>

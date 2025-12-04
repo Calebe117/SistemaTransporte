@@ -11,44 +11,39 @@ import org.springframework.stereotype.Service;
 import br.edu.ifpb.academico.entity.Usuario;
 import br.edu.ifpb.academico.repository.UsuarioRepository;
 
-
-
 @Service
-public class UsuarioService implements UserDetailsService{
+public class UsuarioService implements UserDetailsService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
 
     public Usuario save(Usuario u) {
-		return usuarioRepository.save(u);
-	}
+        return usuarioRepository.save(u);
+    }
 
-	public List<Usuario> findAll() {
-		return usuarioRepository.findAll();
-	}
+    public List<Usuario> findAll() {
+        return usuarioRepository.findAll();
+    }
 
-	public Usuario findById(Long id) {
-		return usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
-	}
+    public Usuario findById(Long id) {
+        return usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
+    }
 
-	public void deleteById(Long id) {
-		if (!usuarioRepository.existsById(id)) {
-			throw new RuntimeException("Usuario não encontrado");
-		}
-		usuarioRepository.deleteById(id);
-	}
+    public void deleteById(Long id) {
+        if (!usuarioRepository.existsById(id)) {
+            throw new RuntimeException("Usuario não encontrado");
+        }
+        usuarioRepository.deleteById(id);
+    }
 
-	public boolean existsByMatricula(String matricula) {
-		return usuarioRepository.existsByMatricula(matricula);
-	}
+    public boolean existsByLogin(String login) {
+        return usuarioRepository.existsByLogin(login);
+    }
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
-		return usuarioRepository.findByLogin(username)
-			.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
-	}
-
-	
-
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return usuarioRepository.findByLogin(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
+    }
 }

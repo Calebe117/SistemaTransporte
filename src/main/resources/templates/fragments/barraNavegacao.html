@@ -1,63 +1,66 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-   <title>Fragments</title>
-   <link href="/css/styles.css" rel="stylesheet">
+    <title>Fragments</title>
+    <link href="/css/styles.css" rel="stylesheet">
 </head>
 <body>
-   <div th:fragment="navbar" class="menu">
-        <div class="sidenav">
+<div th:fragment="navbar" class="menu">
+    <div class="sidenav">
 
-            <!-- Usuário logado -->
-            <div class="user-info" style="padding: 12px 20px; color: #fff; font-weight: bold;">
-				<span th:text="${#authentication != null} ? ${#authentication.name} : 'Visitante'"></span>
-            </div>
-
-            <a th:href="@{/}" th:if="${#authorization.expression('isAuthenticated()')}">Início</a>
-            
-            <!-- Menu Motoristas -->
-            <button class="dropdown-btn" th:if="${#authorization.expression('hasRole(''ADMIN'') or hasRole(''MANAGER'')')}">
-                Motoristas &#x25BC;
-            </button>
-            <div class="dropdown-container">
-                <a th:href="@{/motorista/form}" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">Cadastrar Motorista</a>
-                <a th:href="@{/motorista/list}">Listar Motoristas</a>
-            </div>
-            
-            <!-- Menu Viagens -->
-            <button class="dropdown-btn">
-                Viagens &#x25BC;
-            </button>
-            <div class="dropdown-container">
-                <a th:href="@{/viagem/form}" th:if="${#authorization.expression('hasRole(''ADMIN'') or hasRole(''MANAGER'')')}">Cadastrar Viagem</a>
-                <a th:href="@{/viagem/list}">Listar Viagens</a>
-            </div>
-
-            <!-- Menu Usuários -->
-            <button class="dropdown-btn" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
-                Usuários &#x25BC;
-            </button>
-            <div class="dropdown-container" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
-                <a th:href="@{/usuario/form}">Cadastrar Usuário</a>
-                <a th:href="@{/usuario/list}">Listar Usuários</a>
-            </div>
-
-            <!-- Menu Roles -->
-            <button class="dropdown-btn" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
-                Roles &#x25BC;
-            </button>
-            <div class="dropdown-container" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
-                <a th:href="@{/role/form}">Cadastrar Role</a>
-                <a th:href="@{/role/list}">Listar Roles</a>
-            </div>
-
-            <!-- Logout -->
-            <form th:action="@{/logout}" method="post" style="margin: 12px;">
-                <button class="button_sair" type="submit">Sair</button>
-            </form>
+        <!-- Usuário logado -->
+        <div class="user-info" style="padding: 12px 20px; color: #fff; font-weight: bold;">
+            <span sec:authentication="name">Visitante</span>
         </div>
 
-        <script src="/js/script.js"></script>
-   </div>
+        <!-- Link para Início -->
+        <a th:href="@{/paginaPrincipal}" sec:authorize="isAuthenticated()">Início</a>
+
+        <!-- Menu Motoristas -->
+        <button class="dropdown-btn" sec:authorize="hasAnyRole('ADMIN','MANAGER')">
+            Motoristas &#x25BC;
+        </button>
+        <div class="dropdown-container">
+            <a th:href="@{/motorista/form}" sec:authorize="hasRole('ADMIN')">Cadastrar Motorista</a>
+            <a th:href="@{/motorista/list}">Listar Motoristas</a>
+        </div>
+
+        <!-- Menu Viagens -->
+        <button class="dropdown-btn">
+            Viagens &#x25BC;
+        </button>
+        <div class="dropdown-container">
+            <a th:href="@{/viagem/form}" sec:authorize="hasAnyRole('ADMIN','MANAGER')">Cadastrar Viagem</a>
+            <a th:href="@{/viagem/list}">Listar Viagens</a>
+        </div>
+
+        <!-- Menu Usuários -->
+        <button class="dropdown-btn" sec:authorize="hasRole('ADMIN')">
+            Usuários &#x25BC;
+        </button>
+        <div class="dropdown-container" sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{/usuario/form}">Cadastrar Usuário</a>
+            <a th:href="@{/usuario/list}">Listar Usuários</a>
+        </div>
+
+        <!-- Menu Roles -->
+        <button class="dropdown-btn" sec:authorize="hasRole('ADMIN')">
+            Roles &#x25BC;
+        </button>
+        <div class="dropdown-container" sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{/role/form}">Cadastrar Role</a>
+            <a th:href="@{/role/list}">Listar Roles</a>
+        </div>
+
+        <!-- Logout -->
+        <form th:action="@{/logout}" method="post" style="margin: 12px;">
+            <button class="button_sair" type="submit">Sair</button>
+        </form>
+
+    </div>
+
+    <script src="/js/script.js"></script>
+</div>
 </body>
 </html>

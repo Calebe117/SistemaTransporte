@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>cadastrar Usuario</title>
-    <link rel="stylesheet" th:href="@{/css/menu.css}">
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
 	<script src="/js/menu.js"></script>
 </head>
 <body>
@@ -17,16 +17,44 @@
     </div>
 
     <br>
+	
+	<div th:insert="fragments/message :: message"></div>
 
-    <form th:action="@{/usuario/save}" th:object="${usuario}" method="post">
-    <br>
+	<form id="formCadastroUsuario" th:action="@{/usuario/save}" th:object="${usuario}" method="post">
+	    <br>
+	    <div th:insert="fragments/formUsuario :: formUsuario"></div>
+	    <div class="button-container">
+	        <button type="submit">Salvar</button>
+	        <button type="button" onclick="window.location.href='/usuario/form'">Cancelar</button>
+	    </div>
+	</form>
 
-        <div th:insert="fragments/formUsuario :: formUsuario"></div>
+	<script>
+	document.addEventListener("DOMContentLoaded", function() {
+	  const form = document.getElementById("formCadastroUsuario"); // apenas este form
+	  const dataNascimentoInput = document.getElementById("idDataNascimento");
 
-            <div class="button-container">
-                <button type="submit">Salvar</button>
-                <button type="button" onclick="window.location.href='/usuario/form'">Cancelar</button>
-            </div>
-    </form>
+	  if (form && dataNascimentoInput) {
+	    form.addEventListener("submit", function(event) {
+	      const dataNascimento = new Date(dataNascimentoInput.value);
+	      const hoje = new Date();
+
+	      let idade = hoje.getFullYear() - dataNascimento.getFullYear();
+	      const mes = hoje.getMonth() - dataNascimento.getMonth();
+	      if (mes < 0 || (mes === 0 && hoje.getDate() < dataNascimento.getDate())) {
+	        idade--;
+	      }
+
+	      if (idade < 18) {
+	        event.preventDefault();
+	        alert("O usuário deve ter pelo menos 18 anos.");
+	        dataNascimentoInput.focus();
+	        return;
+	      }
+	    });
+	  }
+	});
+	</script>
+
 </body>
 </html>

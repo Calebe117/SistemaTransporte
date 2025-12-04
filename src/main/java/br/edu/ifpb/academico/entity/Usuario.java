@@ -33,10 +33,6 @@ public class Usuario implements UserDetails{
 	@Column(nullable = false)
     private String nome;
 
-    @NotBlank(message = "A matrícula do usuario é obrigatória")
-	@Column(unique = true, nullable = false)
-    private String matricula;
-
     @NotBlank(message = "O login do usuario é obrigatório")
 	@Column(unique = true, nullable = false)
     private String login;
@@ -76,14 +72,6 @@ public class Usuario implements UserDetails{
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
     }
 
     public String getLogin() {

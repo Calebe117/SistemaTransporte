@@ -17,26 +17,17 @@ public class SecurityConfig {
 
         http
             .authorizeHttpRequests(auth -> auth
-                // Recursos estáticos liberados
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
+                
+                .requestMatchers("/login").permitAll()
 
-                // Página inicial
-                .requestMatchers("/", "/paginaPrincipal").authenticated()
-
-                // Rotas do sistema (no momento ainda sem segurança real)
-                .requestMatchers("/motorista/**").permitAll()
-                .requestMatchers("/viagem/**").permitAll()
-
-                // Quando criarmos usuários e roles, trocaremos isso aqui:
                 .anyRequest().authenticated()
             )
-
-            // Login ainda não implementado, então deixamos neutro:
             .formLogin(form -> form
-                .loginPage("/login")   // quando você criar essa rota
+                .loginPage("/login")               
+                .defaultSuccessUrl("/paginaPrincipal", true) 
                 .permitAll()
             )
-
             .logout(logout -> logout
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login?logout")
