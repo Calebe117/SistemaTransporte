@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import br.edu.ifpb.academico.entity.Motorista;
+import br.edu.ifpb.academico.entity.Viagem;
 import br.edu.ifpb.academico.service.MotoristaService;
 import br.edu.ifpb.academico.service.ViagemService;
-import br.edu.ifpb.entity.Motorista;
-import br.edu.ifpb.entity.Viagem;
 
 @Controller
 @RequestMapping("/viagem")

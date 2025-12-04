@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.ifpb.academico.repository.MotoristaRepository;
+import br.edu.ifpb.academico.entity.Motorista;
 import br.edu.ifpb.academico.repository.CnhRepository;
-import br.edu.ifpb.entity.Motorista;
 
 @Service
 public class MotoristaService {

@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.edu.ifpb.academico.entity.Cnh;
 import br.edu.ifpb.academico.repository.CnhRepository;
-import br.edu.ifpb.entity.Cnh;
 
 @Service
 public class CnhService {

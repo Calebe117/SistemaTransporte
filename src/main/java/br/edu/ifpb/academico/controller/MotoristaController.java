@@ -5,8 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import br.edu.ifpb.academico.entity.Motorista;
 import br.edu.ifpb.academico.service.MotoristaService;
-import br.edu.ifpb.entity.Motorista;
 
 @Controller
 @RequestMapping("/motorista")

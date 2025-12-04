@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.edu.ifpb.academico.entity.Motorista;
+import br.edu.ifpb.academico.entity.Viagem;
+import br.edu.ifpb.academico.entity.Viagem.StatusViagem;
 import br.edu.ifpb.academico.repository.ViagemRepository;
-import br.edu.ifpb.entity.Viagem;
-import br.edu.ifpb.entity.Viagem.StatusViagem;
-import br.edu.ifpb.entity.Motorista;
 
 @Service
 public class ViagemService {

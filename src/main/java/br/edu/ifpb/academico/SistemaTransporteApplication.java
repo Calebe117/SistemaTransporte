@@ -1,4 +1,4 @@
-package br.edu.ifpb;
+package br.edu.ifpb.academico;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

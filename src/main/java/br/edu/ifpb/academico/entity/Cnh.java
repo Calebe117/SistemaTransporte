@@ -1,4 +1,4 @@
-package br.edu.ifpb.entity;
+package br.edu.ifpb.academico.entity;
 
 import java.io.Serializable;
 import java.util.Date;
